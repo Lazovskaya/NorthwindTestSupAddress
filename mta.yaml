@@ -1,0 +1,45 @@
+## Generated mta.yaml based on template version 0.4.0
+## appName = extservice
+## language=nodejs; multitenant=false
+## approuter=
+_schema-version: '3.1'
+ID: extservice
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+   
+build-parameters:
+  before-all:
+   - builder: custom
+     commands:
+      - npm install --production
+      - npx -p @sap/cds-dk cds build --production
+
+modules:
+ # --------------------- SERVER MODULE ------------------------
+ - name: extservice-srv
+ # ------------------------------------------------------------
+   type: nodejs
+   path: gen/srv
+   properties:
+     EXIT: 1  # required by deploy.js task to terminate 
+   requires:
+     - name: Northwind
+     - name: Northwind-uaa        
+
+resources:
+ - name: Northwind
+   type: org.cloudfoundry.existing-service
+   parameters:
+     service-name: Northwind
+
+ - name: Northwind-uaa
+   type: org.cloudfoundry.managed-service
+   parameters:
+     path: ./xs-security.json
+     service: xsuaa
+     service-plan: application  
+
+
+

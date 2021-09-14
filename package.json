@@ -1,0 +1,68 @@
+{
+    "name": "extservice",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap/cloud-sdk-core": "^1.17.2",
+        "@sap/hana-client": "^2.4.196",
+        "@sap/xsenv": "^2.2.0",
+        "@sap/xssec": "^2.2.5",
+        "@sap/cds": "^5.4.4",
+        "passport": "^0.4.1",
+        "express": "^4.17.1",
+        "axios": "^0.19.2",
+        "moment": "^2.24.0",
+        "moment-timezone": "^0.5.28",
+        "execution-time": "^1.4.1",
+        "hdb": "^0.17.1",
+        "uuid": "^3.4.0"
+    },
+    "engines": {
+        "node": "^10 || ^12"
+    },
+    "devDependencies": {
+        "sqlite3": "^5.0.2"
+    },
+    "scripts": {
+        "start": "cds run"
+    },
+    "cds": {
+        "requires": {
+            "Northwind": {
+                "kind": "odata",
+                "model": "srv/external/NorthWind",
+                "credentials": {
+                    "destination": "Northwind"
+                }
+            }
+        }
+    },
+    "eslintConfig": {
+        "extends": "eslint:recommended",
+        "env": {
+            "es2020": true,
+            "node": true,
+            "jest": true,
+            "mocha": true
+        },
+        "globals": {
+            "SELECT": true,
+            "INSERT": true,
+            "UPDATE": true,
+            "DELETE": true,
+            "CREATE": true,
+            "DROP": true,
+            "CDL": true,
+            "CQL": true,
+            "CXL": true,
+            "cds": true
+        },
+        "rules": {
+            "no-console": "off",
+            "require-atomic-updates": "off"
+        }
+    }
+}
